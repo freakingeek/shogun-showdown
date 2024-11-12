@@ -1,3 +1,4 @@
+import HomePage from "@/app/page";
 import RootLayout from "@/app/layout";
 import NotFound from "@/app/not-found";
 import GlobalErrorPage from "@/app/global-error";
@@ -9,6 +10,11 @@ const router = createBrowserRouter([
     Component: RootLayout,
     errorElement: <GlobalErrorPage />,
     children: [
+      {
+        path: "/",
+        Component: HomePage,
+        index: true,
+      },
       {
         path: "*",
         Component: NotFound,
