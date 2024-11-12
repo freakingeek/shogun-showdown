@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         primary: "#ed4231",
+        secondary: "#999999",
       },
       fontFamily: {
         pixel: ["Pixelify Sans"],
