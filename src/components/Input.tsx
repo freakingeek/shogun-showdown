@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { InputHTMLAttributes } from "react";
+import { forwardRef, InputHTMLAttributes } from "react";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
@@ -7,18 +7,16 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   inputClassName?: string;
 };
 
-export default function Input({
-  label,
-  error = "",
-  className,
-  inputClassName,
-  ...rest
-}: InputProps) {
+const Input = forwardRef<HTMLInputElement, InputProps>(function (
+  { label, error = "", className, inputClassName, ...rest },
+  ref
+) {
   return (
     <div className={className}>
       <span className="block text-left pl-2">{label}</span>
 
       <input
+        ref={ref}
         type="text"
         className={classNames(
           "w-full h-14 bg-black transition-colors border-2 border-secondary focus:border-primary outline-none rounded-2xl px-4 mt-1 placeholder:text-secondary",
@@ -32,4 +30,8 @@ export default function Input({
       </span>
     </div>
   );
-}
+});
+
+Input.displayName = "Input";
+
+export default Input;
