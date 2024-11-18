@@ -10,6 +10,9 @@ export default {
         primary: "#ed4231",
         secondary: "#999999",
       },
+      backgroundColor: {
+        dark: "#0e0e0e",
+      },
       fontFamily: {
         pixel: ["Pixelify Sans"],
       },
