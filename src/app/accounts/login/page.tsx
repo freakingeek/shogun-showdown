@@ -77,8 +77,8 @@ export default function LoginPage() {
             value: true,
           },
           pattern: {
-            value: /\S+@\S+\.\S+/,
             message: "That doesn’t look like a proper email, warrior.",
+            value: /\S+@\S+\.\S+/,
           },
         })}
       />
