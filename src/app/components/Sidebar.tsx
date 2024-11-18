@@ -15,13 +15,7 @@ export default function Sidebar({ className }: SidebarProps) {
       <div className="sticky top-4">
         <Menu />
 
-        {isLoggedIn ? (
-          <Profile />
-        ) : (
-          <Button href="/accounts/login" className="w-full mt-32">
-            Login
-          </Button>
-        )}
+        <div className="w-full mt-32">{isLoggedIn ? <Profile /> : <Button href="/accounts/login">Login</Button>}</div>
       </div>
     </aside>
   );
