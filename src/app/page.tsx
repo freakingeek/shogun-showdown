@@ -1,8 +1,6 @@
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
-import PinnedPosts from "./components/PinnedPosts";
-import SinglePost from "@/components/post/SinglePost";
 import Button from "@/components/Button";
+import MainLayout from "@/components/layouts/Main";
+import SinglePost from "@/components/post/SinglePost";
 
 export default function HomePage() {
   const posts = [
@@ -58,24 +56,16 @@ export default function HomePage() {
   ];
 
   return (
-    <>
-      <Header />
+    <MainLayout>
+      {posts.map((post) => (
+        <SinglePost {...post} key={post.id} />
+      ))}
 
-      <main className="flex gap-x-16 mt-10">
-        <Sidebar className="basis-64" />
+      <div className="w-full h-40 bg-gradient-to-b from-black/0 via-black/95 via-50% to-black relative z-10 !-mt-40" />
 
-        <section className="flex-1 space-y-6 pb-40">
-          {posts.map((post) => (
-            <SinglePost {...post} key={post.id} />
-          ))}
-
-          <div className="w-full h-40 bg-gradient-to-b from-black/0 via-black/95 via-50% to-black relative z-10 !-mt-40" />
-
-          <Button variant="secondary" className="w-full">Load more</Button>
-        </section>
-
-        <PinnedPosts className="basis-64" />
-      </main>
-    </>
+      <Button variant="secondary" className="w-full">
+        Load more
+      </Button>
+    </MainLayout>
   );
 }
