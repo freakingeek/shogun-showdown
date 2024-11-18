@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-type SinglePostProps = {
+type PostProps = {
   id: number;
   title: string;
   author: string;
@@ -8,13 +8,13 @@ type SinglePostProps = {
   description: string;
 };
 
-export default function SinglePost({
+export default function Post({
   id,
   title,
   author,
   date,
   description,
-}: SinglePostProps) {
+}: PostProps) {
   const postUrl = `/post/${id}`;
 
   return (

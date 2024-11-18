@@ -1,6 +1,6 @@
+import Post from "@/components/Post";
 import Button from "@/components/Button";
 import MainLayout from "@/components/layouts/Main";
-import SinglePost from "@/components/post/SinglePost";
 
 export default function HomePage() {
   const posts = [
@@ -58,7 +58,7 @@ export default function HomePage() {
   return (
     <MainLayout>
       {posts.map((post) => (
-        <SinglePost {...post} key={post.id} />
+        <Post {...post} key={post.id} />
       ))}
 
       <div className="w-full h-40 bg-gradient-to-b from-black/0 via-black/95 via-50% to-black relative z-10 !-mt-40" />
