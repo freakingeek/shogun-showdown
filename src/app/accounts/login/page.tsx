@@ -1,8 +1,9 @@
 import Input from "@/components/Input";
-import { Link } from "react-router-dom";
 import Button from "@/components/Button";
+import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useGlobalApolloClient from "@/hooks/useGlobalApolloClient";
+import { REQUEST_CODE_MUTATION } from "@/graphql/mutations/requestCode";
 import { EMAIL_VALIDATION_MUTATION } from "@/graphql/mutations/emailValidation";
 
 type Inputs = {
@@ -10,6 +11,7 @@ type Inputs = {
 };
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const globalApolloClient = useGlobalApolloClient();
   const {
     register,
@@ -29,7 +31,24 @@ export default function LoginPage() {
         setError("email", {
           message: "That doesn’t look like a proper email, warrior.",
         });
+
+        return;
       }
+
+      const { data: requestCodeData } = await globalApolloClient.mutate({
+        mutation: REQUEST_CODE_MUTATION,
+        variables: { input: { email } },
+      });
+
+      if (requestCodeData?.requestGlobalTokenCode.status !== "succeeded") {
+        setError("email", {
+          message: "An error has occurred. Try again or seek help from the elders.",
+        });
+
+        return;
+      }
+
+      navigate("/accounts/verify");
     } catch {
       setError("email", {
         message: "The email format is invalid. Try again, brave one.",
@@ -43,9 +62,7 @@ export default function LoginPage() {
       onSubmit={handleSubmit(onSubmit)}
     >
       <h1 className="text-2xl font-bold">Begin Your Journey</h1>
-      <span className="text-secondary mt-4">
-        Step forth, warrior! Enter your email to begin your quest!
-      </span>
+      <span className="text-secondary mt-4">Step forth, warrior! Enter your email to begin your quest!</span>
 
       <Input
         type="email"
