@@ -3,11 +3,13 @@ import { InputHTMLAttributes } from "react";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
+  error?: string;
   inputClassName?: string;
 };
 
 export default function Input({
   label,
+  error = "",
   className,
   inputClassName,
   ...rest
@@ -24,6 +26,10 @@ export default function Input({
         )}
         {...rest}
       />
+
+      <span className="block text-left text-xs text-primary pl-2 mt-2">
+        {error}
+      </span>
     </div>
   );
 }
