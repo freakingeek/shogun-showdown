@@ -1,6 +1,7 @@
 import Input from "@/components/Input";
 import Button from "@/components/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import CopyRight from "../components/CopyRight";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useGlobalApolloClient from "@/hooks/useGlobalApolloClient";
 import { REQUEST_CODE_MUTATION } from "@/graphql/mutations/requestCode";
@@ -83,17 +84,7 @@ export default function LoginPage() {
       />
       <Button className="w-full mt-8">Send Quest Code</Button>
 
-      <span className="w-80 text-sm mt-auto">
-        By proceeding, you honor our{" "}
-        <Link to="/" className="text-primary">
-          realm’s rules
-        </Link>{" "}
-        and accept the{" "}
-        <Link to="/" className="text-primary">
-          community's terms
-        </Link>
-        .
-      </span>
+      <CopyRight />
     </form>
   );
 }
