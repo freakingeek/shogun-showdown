@@ -6,6 +6,7 @@ import LoginPage from "@/app/accounts/login/page";
 import AccountsLayout from "@/app/accounts/Layout";
 import VerifyPage from "@/app/accounts/verify/page";
 import { createBrowserRouter } from "react-router-dom";
+import SinglePostPage from "@/app/post/[id]/page";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
         path: "/",
         Component: HomePage,
         index: true,
+      },
+      {
+        path: "/post/:id",
+        Component: SinglePostPage,
       },
       {
         path: "/accounts/*",
