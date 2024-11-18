@@ -2,20 +2,39 @@ import Input from "@/components/Input";
 import { Link } from "react-router-dom";
 import Button from "@/components/Button";
 import { SubmitHandler, useForm } from "react-hook-form";
+import useGlobalApolloClient from "@/hooks/useGlobalApolloClient";
+import { EMAIL_VALIDATION_MUTATION } from "@/graphql/mutations/emailValidation";
 
 type Inputs = {
-  email: number;
+  email: string;
 };
 
 export default function LoginPage() {
+  const globalApolloClient = useGlobalApolloClient();
   const {
     register,
+    setError,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log("data.email", data);
+  const onSubmit: SubmitHandler<Inputs> = async ({ email }) => {
+    try {
+      const { data } = await globalApolloClient.mutate({
+        mutation: EMAIL_VALIDATION_MUTATION,
+        variables: { input: { email } },
+      });
+
+      if (!data?.validateEmail.valid) {
+        setError("email", {
+          message: "That doesn’t look like a proper email, warrior.",
+        });
+      }
+    } catch {
+      setError("email", {
+        message: "The email format is invalid. Try again, brave one.",
+      });
+    }
   };
 
   return (
