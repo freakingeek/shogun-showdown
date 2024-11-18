@@ -1,3 +1,4 @@
+import Like from "@/components/Like";
 import { Link } from "react-router-dom";
 
 type PostProps = {
@@ -33,6 +34,8 @@ export default function Post({
       </Link>
 
       <p className="font-sans mt-4">{description}</p>
+
+      <Like className="mt-6" />
 
       <Link to={postUrl} className="text-primary mt-8">
         Read more
