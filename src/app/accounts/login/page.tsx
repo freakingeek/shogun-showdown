@@ -1,19 +1,23 @@
 import Input from "@/components/Input";
 import Button from "@/components/Button";
-import { useNavigate } from "react-router-dom";
-import CopyRight from "../components/CopyRight";
+import { useMutation } from "@apollo/client";
+import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useAuthContext } from "@/providers/AuthProvider";
+import { LOGIN_MUTATION } from "@/graphql/mutations/login";
 import useGlobalApolloClient from "@/hooks/useGlobalApolloClient";
-import { REQUEST_CODE_MUTATION } from "@/graphql/mutations/requestCode";
+import { ACCESS_TOKEN_KEY, IS_GUEST_KEY } from "@/configs/constants";
 import { EMAIL_VALIDATION_MUTATION } from "@/graphql/mutations/emailValidation";
 
 type Inputs = {
   email: string;
+  password: string;
 };
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const globalApolloClient = useGlobalApolloClient();
+  const { setIsLoggedIn, setCurrentUser } = useAuthContext();
   const {
     register,
     setError,
@@ -21,45 +25,53 @@ export default function LoginPage() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = async ({ email }) => {
-    try {
-      const { data } = await globalApolloClient.mutate({
-        mutation: EMAIL_VALIDATION_MUTATION,
-        variables: { input: { email } },
+  const [validateEmail] = useMutation(EMAIL_VALIDATION_MUTATION, { client: globalApolloClient });
+  const [login] = useMutation(LOGIN_MUTATION, {
+    onCompleted: ({ loginNetwork }) => {
+      localStorage.setItem(IS_GUEST_KEY, "false");
+      localStorage.setItem(ACCESS_TOKEN_KEY, loginNetwork.accessToken);
+
+      setIsLoggedIn(true);
+
+      setCurrentUser({
+        name: loginNetwork.member.name,
+        email: loginNetwork.member.email,
       });
 
-      if (!data?.validateEmail.valid) {
+      navigate("/");
+    },
+    onError: () => {
+      setError("password", {
+        message: "An error has occurred. Try again or seek help from the elders.",
+      });
+    },
+  });
+
+  const onSubmit: SubmitHandler<Inputs> = ({ email, password }) => {
+    validateEmail({
+      variables: { input: { email } },
+      onCompleted: ({ validateEmail }) => {
+        if (!validateEmail.valid) {
+          setError("email", {
+            message: "That doesn’t look like a proper email, warrior.",
+          });
+
+          return;
+        }
+
+        login({ variables: { email, password } });
+      },
+      onError: () => {
         setError("email", {
-          message: "That doesn’t look like a proper email, warrior.",
+          message: "The email format is invalid. Try again, brave one.",
         });
-
-        return;
-      }
-
-      const { data: requestCodeData } = await globalApolloClient.mutate({
-        mutation: REQUEST_CODE_MUTATION,
-        variables: { input: { email } },
-      });
-
-      if (requestCodeData?.requestGlobalTokenCode.status !== "succeeded") {
-        setError("email", {
-          message: "An error has occurred. Try again or seek help from the elders.",
-        });
-
-        return;
-      }
-
-      navigate("/accounts/verify");
-    } catch {
-      setError("email", {
-        message: "The email format is invalid. Try again, brave one.",
-      });
-    }
+      },
+    });
   };
 
   return (
     <form
-      className="w-[480px] h-[576px] flex flex-col items-center text-center bg-black rounded-[32px] p-10"
+      className="w-[480px] flex flex-col items-center text-center bg-black rounded-[32px] p-10"
       onSubmit={handleSubmit(onSubmit)}
     >
       <h1 className="text-2xl font-bold">Begin Your Journey</h1>
@@ -70,7 +82,7 @@ export default function LoginPage() {
         label="email"
         error={errors.email?.message || ""}
         placeholder="warrior@site.com"
-        className="w-full mt-20"
+        className="w-full mt-10"
         {...register("email", {
           required: {
             message: "Type your email to proceed, warrior!",
@@ -82,9 +94,42 @@ export default function LoginPage() {
           },
         })}
       />
+
+      <Input
+        type="password"
+        label="password"
+        error={errors.password?.message || ""}
+        placeholder="********"
+        className="w-full mt-4"
+        {...register("password", {
+          required: {
+            message: "Type your password to proceed, warrior!",
+            value: true,
+          },
+          minLength: {
+            message: "Password must be at least 8 characters, warrior!",
+            value: 8,
+          },
+          maxLength: {
+            message: "Password cannot exceed 256 characters, brave soul!",
+            value: 256,
+          },
+        })}
+      />
+
       <Button className="w-full mt-8">Send Quest Code</Button>
 
-      <CopyRight />
+      <span className="w-80 text-sm mt-10">
+        By proceeding, you honor our{" "}
+        <Link to="/" className="text-primary">
+          realm’s rules
+        </Link>{" "}
+        and accept the{" "}
+        <Link to="/" className="text-primary">
+          community's terms
+        </Link>
+        .
+      </span>
     </form>
   );
 }
