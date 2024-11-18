@@ -1,6 +1,11 @@
-import AuthProvider from "./AuthProvider";
 import { PropsWithChildren } from "react";
+import AuthProvider from "./AuthProvider";
+import GraphQLProvider from "./GraphQLProvider";
 
 export default function Providers({ children }: PropsWithChildren) {
-  return <AuthProvider>{children}</AuthProvider>;
+  return (
+    <GraphQLProvider>
+      <AuthProvider>{children}</AuthProvider>;
+    </GraphQLProvider>
+  );
 }
