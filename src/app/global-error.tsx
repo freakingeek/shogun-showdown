@@ -6,7 +6,11 @@ export default function GlobalErrorPage() {
   const error = useRouteError() as Error;
 
   if (error instanceof NotFoundError) {
-    return <Error404 />;
+    return (
+      <div className="h-svh flex items-center justify-center">
+        <Error404 />
+      </div>
+    );
   }
 
   return <h1>{error.message}</h1>;
