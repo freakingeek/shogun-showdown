@@ -4,8 +4,8 @@ import { useMutation } from "@apollo/client";
 import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useAuthContext } from "@/providers/AuthProvider";
+import { globalApolloClient } from "@/lib/apollo-clients";
 import { LOGIN_MUTATION } from "@/graphql/mutations/login";
-import useGlobalApolloClient from "@/hooks/useGlobalApolloClient";
 import { ACCESS_TOKEN_KEY, IS_GUEST_KEY } from "@/configs/constants";
 import { EMAIL_VALIDATION_MUTATION } from "@/graphql/mutations/emailValidation";
 
@@ -16,7 +16,6 @@ type Inputs = {
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const globalApolloClient = useGlobalApolloClient();
   const { setIsLoggedIn, setCurrentUser } = useAuthContext();
   const {
     register,

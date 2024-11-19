@@ -1,13 +1,7 @@
 import { PropsWithChildren } from "react";
-import { ACCESS_TOKEN_KEY } from "@/configs/constants";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
+import { apolloClient } from "@/lib/apollo-clients";
 
 export default function GraphQLProvider({ children }: PropsWithChildren) {
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    uri: import.meta.env.VITE_API_URL,
-    headers: { Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN_KEY)}` },
-  });
-
-  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+  return <ApolloProvider client={apolloClient}>{children}</ApolloProvider>;
 }
