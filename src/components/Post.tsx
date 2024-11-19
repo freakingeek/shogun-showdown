@@ -19,7 +19,7 @@ export default function Post({ id, title, author, date, likesCount, description,
     <div className="flex flex-col">
       <div className="flex items-center gap-x-2">
         <span className="text-sm font-medium">{author}</span>
-        <span className="w-1 h-1 bg-white rounded-sm"></span>
+        <span className="w-1 h-1 bg-secondary rounded-sm"></span>
         <span className="text-xs">{dayjs(date).fromNow()}</span>
       </div>
 

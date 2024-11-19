@@ -8,7 +8,7 @@ export default function SinglePostPage() {
       <article className="flex flex-col">
         <div className="flex items-center gap-x-2">
           <span className="text-sm font-medium">Yasin Silavi</span>
-          <span className="w-1 h-1 bg-white rounded-sm"></span>
+          <span className="w-1 h-1 bg-secondary rounded-sm"></span>
           <span className="text-xs">09 Days ago</span>
         </div>
 
