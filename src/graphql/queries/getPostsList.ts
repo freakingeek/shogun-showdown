@@ -1,8 +1,13 @@
 import { gql, TypedDocumentNode } from "@apollo/client";
 
+type Reaction = {
+  reacted: boolean;
+};
+
 type Node = {
   id: string;
   slug: string;
+  reactions: Reaction[]
   reactionsCount: number;
   hasMoreContent: boolean;
   shortContent: string | null;
@@ -49,6 +54,9 @@ export const GET_POSTS_LIST_QUERY: TypedDocumentNode<GetPostsListData, GetPostsL
         title
         createdAt
         description
+        reactions {
+          reacted
+        }
         thumbnail {
           ... on Image {
             url

@@ -1,5 +1,9 @@
 import { gql, TypedDocumentNode } from "@apollo/client";
 
+type Reaction = {
+  reacted: boolean;
+};
+
 type Field = {
   key: string;
   value: string;
@@ -10,9 +14,7 @@ type GetSinglePostData = {
     title: string;
     createdAt: string;
     reactionsCount: number;
-    reactions: {
-      reacted: boolean;
-    };
+    reactions: Reaction[];
     owner: {
       member: {
         name: string;

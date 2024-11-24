@@ -25,6 +25,10 @@ export default function HomePage() {
     });
   };
 
+  const isLikedByCurrentUser = (reactions: { reacted: boolean }[]) => {
+    return reactions.some((reaction) => reaction.reacted);
+  };
+
   if (loading) {
     return (
       <MainLayout>
@@ -53,6 +57,7 @@ export default function HomePage() {
           author={post.owner.member.name}
           likesCount={post.reactionsCount}
           hasMoreContent={post.hasMoreContent}
+          isLiked={isLikedByCurrentUser(post.reactions)}
         />
       ))}
 
