@@ -2,7 +2,7 @@ import { gql, TypedDocumentNode } from "@apollo/client";
 
 type RequestCodeData = {
   requestGlobalTokenCode: {
-    status: "succeeded";
+    status: "succeeded" | "failed";
   };
 };
 
@@ -12,13 +12,8 @@ type RequestCodeVariables = {
   };
 };
 
-export const REQUEST_CODE_MUTATION: TypedDocumentNode<
-  RequestCodeData,
-  RequestCodeVariables
-> = gql`
-  mutation AuthFormRequestGlobalTokenCodeMutation(
-    $input: RequestGlobalTokenInput!
-  ) {
+export const REQUEST_CODE_MUTATION: TypedDocumentNode<RequestCodeData, RequestCodeVariables> = gql`
+  mutation AuthFormRequestGlobalTokenCodeMutation($input: RequestGlobalTokenInput!) {
     requestGlobalTokenCode(input: $input) {
       status
     }
