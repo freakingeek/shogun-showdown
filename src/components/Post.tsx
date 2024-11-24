@@ -7,12 +7,13 @@ type PostProps = {
   title: string;
   author: string;
   date: string;
+  isLiked: boolean;
   likesCount: number;
   description: string;
   hasMoreContent: boolean;
 };
 
-export default function Post({ id, title, author, date, likesCount, description, hasMoreContent }: PostProps) {
+export default function Post({ id, title, author, date, isLiked, likesCount, description, hasMoreContent }: PostProps) {
   const postUrl = `/post/${id}`;
 
   return (
@@ -29,7 +30,7 @@ export default function Post({ id, title, author, date, likesCount, description,
 
       <p className="font-sans mt-4">{description}</p>
 
-      <Like likesCount={likesCount} className="mt-6" />
+      <Like postId={id} likesCount={likesCount} isLiked={isLiked} className="mt-6" />
 
       {hasMoreContent && (
         <Link to={postUrl} className="text-primary mt-8">

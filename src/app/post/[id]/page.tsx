@@ -8,7 +8,10 @@ import { GET_SINGLE_POST_QUERY } from "@/graphql/queries/getSinglePost";
 
 export default function SinglePostPage() {
   const params = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery(GET_SINGLE_POST_QUERY, { variables: { id: params.id! } });
+  const { data, loading, error } = useQuery(GET_SINGLE_POST_QUERY, {
+    variables: { id: params.id! },
+    fetchPolicy: "no-cache",
+  });
 
   if (loading) {
     return (
@@ -33,6 +36,8 @@ export default function SinglePostPage() {
   const content = data?.post.fields.find((field) => field.key === "content")?.value || "";
   const slicedContent = content.slice(1, content.length - 1); // "Content" => Content
 
+  const isLikedByCurrentUser = data?.post.reactions.some((reaction) => reaction.reacted);
+
   return (
     <MainLayout>
       <div className="flex flex-col">
@@ -51,7 +56,12 @@ export default function SinglePostPage() {
           className="prose prose-headings:text-white prose-strong:text-white prose-p:text-secondary prose-a:text-primary font-sans mt-4"
         />
 
-        <Like likesCount={data?.post.reactionsCount} isLiked={data?.post.reactions.reacted} className="mt-8" />
+        <Like
+          postId={params.id!}
+          likesCount={data?.post.reactionsCount}
+          isLiked={isLikedByCurrentUser}
+          className="mt-8"
+        />
       </div>
     </MainLayout>
   );
