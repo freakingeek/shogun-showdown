@@ -4,6 +4,8 @@ import react from "@vitejs/plugin-react-swc";
 
 // https://vite.dev/config/
 export default defineConfig({
+  // NOTE: For compatibility with GitHub Pages
+  base: process.env.NODE_ENV !== "development" ? "/shogun-showdown/" : "",
   plugins: [react()],
   resolve: {
     alias: {
