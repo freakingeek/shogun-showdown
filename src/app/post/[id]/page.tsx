@@ -8,7 +8,10 @@ import { GET_SINGLE_POST_QUERY } from "@/graphql/queries/getSinglePost";
 
 export default function SinglePostPage() {
   const params = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery(GET_SINGLE_POST_QUERY, { variables: { id: params.id! } });
+  const { data, loading, error } = useQuery(GET_SINGLE_POST_QUERY, {
+    variables: { id: params.id! },
+    fetchPolicy: "no-cache",
+  });
 
   if (loading) {
     return (

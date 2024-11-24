@@ -9,6 +9,7 @@ const POSTS_PER_REQUEST = 5;
 export default function HomePage() {
   const { data, loading, error, fetchMore } = useQuery(GET_POSTS_LIST_QUERY, {
     variables: { limit: POSTS_PER_REQUEST, offset: 0 },
+    fetchPolicy: "no-cache",
   });
 
   const posts = data?.posts.nodes || [];
