@@ -16,7 +16,7 @@ type LoginVariables = {
 };
 
 export const LOGIN_MUTATION: TypedDocumentNode<LoginData, LoginVariables> = gql`
-  mutation login($email: String!, $password: String!) {
+  mutation Login($email: String!, $password: String!) {
     loginNetwork(input: { usernameOrEmail: $email, password: $password }) {
       accessToken
       member {
