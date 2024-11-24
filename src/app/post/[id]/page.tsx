@@ -53,7 +53,12 @@ export default function SinglePostPage() {
           className="prose prose-headings:text-white prose-strong:text-white prose-p:text-secondary prose-a:text-primary font-sans mt-4"
         />
 
-        <Like likesCount={data?.post.reactionsCount} isLiked={isLikedByCurrentUser} className="mt-8" />
+        <Like
+          postId={params.id!}
+          likesCount={data?.post.reactionsCount}
+          isLiked={isLikedByCurrentUser}
+          className="mt-8"
+        />
       </div>
     </MainLayout>
   );

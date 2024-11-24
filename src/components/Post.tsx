@@ -30,7 +30,7 @@ export default function Post({ id, title, author, date, isLiked, likesCount, des
 
       <p className="font-sans mt-4">{description}</p>
 
-      <Like likesCount={likesCount} isLiked={isLiked} className="mt-6" />
+      <Like postId={id} likesCount={likesCount} isLiked={isLiked} className="mt-6" />
 
       {hasMoreContent && (
         <Link to={postUrl} className="text-primary mt-8">
