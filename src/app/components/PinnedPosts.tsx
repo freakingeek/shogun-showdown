@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import { Link } from "react-router-dom";
 
 type PinnedPostsProps = {
@@ -22,7 +21,7 @@ export default function PinnedPosts({ className }: PinnedPostsProps) {
   ];
 
   return (
-    <div className={classNames("", className)}>
+    <div className={className}>
       <h2 className="py-2 px-4">Pinned Posts</h2>
 
       <div className="space-y-2 mt-2">

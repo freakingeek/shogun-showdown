@@ -28,7 +28,7 @@ export default function Post({ id, title, author, date, isLiked, likesCount, des
         {title}
       </Link>
 
-      <p className="font-sans mt-4">{description}</p>
+      <p className="font-sans max-xl:text-sm mt-4">{description}</p>
 
       <Like postId={id} likesCount={likesCount} isLiked={isLiked} className="mt-6" />
 

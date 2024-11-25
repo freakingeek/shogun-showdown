@@ -1,5 +1,5 @@
 // NOTE: We should use better solutions in production, but I kept it simple for this project
-type Icons = "home" | "feed" | "discussions" | "wiki" | "like";
+export type Icons = "home" | "feed" | "discussions" | "wiki" | "like";
 
 type IconProps = {
   name: Icons;

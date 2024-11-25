@@ -69,7 +69,7 @@ export default function LoginPage() {
 
   return (
     <form
-      className="w-[480px] flex flex-col items-center text-center bg-black rounded-[32px] p-10"
+      className="w-[480px] max-sm:w-[calc(100%-8px)] flex flex-col items-center text-center bg-black rounded-[32px] p-10"
       onSubmit={handleSubmit(onSubmit)}
     >
       <h1 className="text-2xl font-bold">Begin Your Journey</h1>
