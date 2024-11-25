@@ -1,15 +1,16 @@
 import HomePage from "@/app/page";
-import RootLayout from "@/app/layout";
 import NotFound from "@/app/not-found";
 import GlobalErrorPage from "@/app/global-error";
 import LoginPage from "@/app/accounts/login/page";
+import SinglePostPage from "@/app/post/[id]/page";
 import AccountsLayout from "@/app/accounts/Layout";
 import { createBrowserRouter } from "react-router-dom";
-import SinglePostPage from "@/app/post/[id]/page";
+import RootLayout, {loader as rootLoader } from "@/app/layout";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    loader: rootLoader,
     Component: RootLayout,
     errorElement: <GlobalErrorPage />,
     children: [

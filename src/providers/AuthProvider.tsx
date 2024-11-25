@@ -1,6 +1,7 @@
-import { useLazyQuery, useQuery } from "@apollo/client";
-import { ACCESS_TOKEN_KEY, IS_GUEST_KEY } from "@/configs/constants";
-import { GET_GUEST_TOKEN_QUERY } from "@/graphql/queries/getGuestToken";
+import { useQuery } from "@apollo/client";
+import { CurrentUser } from "@/types/user";
+import { ACCESS_TOKEN_KEY } from "@/configs/constants";
+import { GET_CURRENT_USER_QUERY } from "@/graphql/queries/getCurrentUser";
 import {
   useMemo,
   useState,
@@ -10,8 +11,6 @@ import {
   type SetStateAction,
   type PropsWithChildren,
 } from "react";
-import { CurrentUser } from "@/types/user";
-import { GET_CURRENT_USER_QUERY } from "@/graphql/queries/getCurrentUser";
 
 type AuthContextTypes = {
   isLoggedIn: boolean;
@@ -36,20 +35,18 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState<CurrentUser>();
 
-  const [getGuestToken] = useLazyQuery(GET_GUEST_TOKEN_QUERY, {
-    variables: { domain: import.meta.env.VITE_NETWORK_DOMAIN },
-    onCompleted: (data) => {
-      localStorage.setItem(ACCESS_TOKEN_KEY, data.tokens.accessToken);
-      localStorage.setItem(IS_GUEST_KEY, String(data.tokens.role.name === "Guest"));
-    },
-  });
-
   useQuery(GET_CURRENT_USER_QUERY, {
     onCompleted: ({ authMember }) => {
-      setIsLoggedIn(true)
+      if (authMember.name === "Guest") {
+        return;
+      }
+
+      setIsLoggedIn(true);
       setCurrentUser({ name: authMember.name, email: authMember.email });
     },
-    onError: () => getGuestToken(),
+    onError: () => {
+      localStorage.removeItem(ACCESS_TOKEN_KEY);
+    },
   });
 
   const values = useMemo(() => ({ isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser }), [currentUser, isLoggedIn]);

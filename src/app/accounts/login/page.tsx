@@ -2,11 +2,11 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { useMutation } from "@apollo/client";
 import { Link, useNavigate } from "react-router-dom";
+import { ACCESS_TOKEN_KEY } from "@/configs/constants";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useAuthContext } from "@/providers/AuthProvider";
 import { globalApolloClient } from "@/lib/apollo-clients";
 import { LOGIN_MUTATION } from "@/graphql/mutations/login";
-import { ACCESS_TOKEN_KEY, IS_GUEST_KEY } from "@/configs/constants";
 import { EMAIL_VALIDATION_MUTATION } from "@/graphql/mutations/emailValidation";
 
 type Inputs = {
@@ -27,7 +27,6 @@ export default function LoginPage() {
   const [validateEmail] = useMutation(EMAIL_VALIDATION_MUTATION, { client: globalApolloClient });
   const [login] = useMutation(LOGIN_MUTATION, {
     onCompleted: ({ loginNetwork }) => {
-      localStorage.setItem(IS_GUEST_KEY, "false");
       localStorage.setItem(ACCESS_TOKEN_KEY, loginNetwork.accessToken);
 
       setIsLoggedIn(true);
