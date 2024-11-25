@@ -1,2 +1,1 @@
-export const GUEST_TOKEN_KEY = "GUEST_TOKEN";
 export const ACCESS_TOKEN_KEY = "ACCESS_TOKEN";
