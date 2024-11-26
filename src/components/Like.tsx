@@ -1,7 +1,7 @@
 import { useState } from "react";
 import classNames from "classnames";
 import Icon from "@/components/Icon";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/index.js";
 import { ADD_REACTION_MUTATION } from "@/graphql/mutations/addReaction";
 import { REMOVE_REACTION_MUTATION } from "@/graphql/mutations/removeReaction";
 
