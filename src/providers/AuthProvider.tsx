@@ -1,5 +1,6 @@
-import { useQuery } from "@apollo/client";
+import { Cookies } from "react-cookie";
 import { CurrentUser } from "@/types/user";
+import { useQuery } from "@apollo/client/index.js";
 import { ACCESS_TOKEN_KEY } from "@/configs/constants";
 import { GET_CURRENT_USER_QUERY } from "@/graphql/queries/getCurrentUser";
 import {
@@ -45,7 +46,8 @@ export default function AuthProvider({ children }: PropsWithChildren) {
       setCurrentUser({ name: authMember.name, email: authMember.email });
     },
     onError: () => {
-      localStorage.removeItem(ACCESS_TOKEN_KEY);
+      const cookies = new Cookies();
+      cookies.remove(ACCESS_TOKEN_KEY);
     },
   });
 
