@@ -5,7 +5,7 @@ import GraphQLProvider from "./GraphQLProvider";
 export default function Providers({ children }: PropsWithChildren) {
   return (
     <GraphQLProvider>
-      <AuthProvider>{children}</AuthProvider>;
+      <AuthProvider>{children}</AuthProvider>
     </GraphQLProvider>
   );
 }
