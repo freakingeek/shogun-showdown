@@ -1,6 +1,6 @@
+import { Link } from "react-router";
 import classNames from "classnames";
 import { PropsWithChildren } from "react";
-import { Link } from "react-router-dom";
 
 type ButtonProps = PropsWithChildren<{
   href?: string;

@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
+import { Link } from "react-router";
 import Like from "@/components/Like";
-import { Link } from "react-router-dom";
 
 type PostProps = {
   id: string;

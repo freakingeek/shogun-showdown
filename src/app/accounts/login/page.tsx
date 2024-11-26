@@ -1,7 +1,7 @@
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { useMutation } from "@apollo/client";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { ACCESS_TOKEN_KEY } from "@/configs/constants";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useAuthContext } from "@/providers/AuthProvider";

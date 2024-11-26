@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import Like from "@/components/Like";
 import { useQuery } from "@apollo/client";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import MainLayout from "@/components/layouts/Main";
 import { NotFoundError } from "@/lib/exceptions/instances";
 import { GET_SINGLE_POST_QUERY } from "@/graphql/queries/getSinglePost";

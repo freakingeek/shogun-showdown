@@ -4,7 +4,7 @@ import GlobalErrorPage from "@/app/global-error";
 import LoginPage from "@/app/accounts/login/page";
 import SinglePostPage from "@/app/post/[id]/page";
 import AccountsLayout from "@/app/accounts/Layout";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router";
 import RootLayout, {loader as rootLoader } from "@/app/layout";
 
 const router = createBrowserRouter([

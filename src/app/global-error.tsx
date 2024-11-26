@@ -1,4 +1,4 @@
-import { useRouteError } from "react-router-dom";
+import { useRouteError } from "react-router";
 import Error404 from "@/components/errors/Error404";
 import { NotFoundError } from "@/lib/exceptions/instances";
 

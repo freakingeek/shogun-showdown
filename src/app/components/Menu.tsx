@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import Icon, { type Icons } from "@/components/Icon";
 
 type Item = {

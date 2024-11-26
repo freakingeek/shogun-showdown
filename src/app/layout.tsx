@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import Providers from "@/providers";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import { apolloClient } from "@/lib/apollo-clients";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { ACCESS_TOKEN_KEY } from "@/configs/constants";
