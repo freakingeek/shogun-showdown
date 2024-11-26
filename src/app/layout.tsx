@@ -1,6 +1,8 @@
 import dayjs from "dayjs";
 import Providers from "@/providers";
 import { Outlet } from "react-router";
+import { Cookies } from "react-cookie";
+import type { Route } from "./+types/layout";
 import { apolloClient } from "@/lib/apollo-clients";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { ACCESS_TOKEN_KEY } from "@/configs/constants";
@@ -8,8 +10,11 @@ import { GET_GUEST_TOKEN_QUERY } from "@/graphql/queries/getGuestToken";
 
 dayjs.extend(relativeTime);
 
-export async function loader() {
-  if (localStorage.getItem(ACCESS_TOKEN_KEY)) {
+export async function loader({ request }: Route.LoaderArgs) {
+  const cookies = new Cookies(request.headers.get("cookie"));
+  const isLoggedIn = cookies.get(ACCESS_TOKEN_KEY);
+
+  if (isLoggedIn) {
     return null;
   }
 
@@ -20,11 +25,15 @@ export async function loader() {
     });
 
     if (data.tokens.accessToken) {
-      localStorage.setItem(ACCESS_TOKEN_KEY, data.tokens.accessToken);
-    }
+      const expireTime = new Date();
+      expireTime.setDate(expireTime.getDate() + 7);
 
-    // NOTE: To set guest token properly
-    window.location.reload();
+      return new Response(null, {
+        headers: {
+          "Set-Cookie": `${ACCESS_TOKEN_KEY}=${data.tokens.accessToken}; expires=${expireTime}; Path=/`,
+        },
+      });
+    }
   } catch (error) {
     console.error(error);
   }
