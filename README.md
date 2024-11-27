@@ -1,5 +1,5 @@
 
-# 🥷 **Shogun Showdown: The Community Portal**
+# 🗡 **Shogun Showdown: The Community Portal**
 
 *"Warriors gather here to forge alliances, share tales of battle, and prepare for the trials ahead. Step into the realm and contribute to the legacy of Shogun Showdown!"*
 
@@ -71,25 +71,9 @@ The **Shogun Showdown Community Portal** is a sanctuary for all warriors. Built 
 
 ---
 
-## 📜 **Contributing**
-*"Every warrior can shape the realm."*  
-- Submit pull requests to share your enhancements.  
-- Report issues if you encounter challenges during your journey.  
-- Follow the **Code of Honor** by respecting the community and upholding quality.
+## 🚧 **Disclaimer: Test Project**  
+*"This portal is a training ground for developers, not a battlefield for warriors."*  
 
----
+This project is a **test project** created to explore ideas and techniques. It is **not intended for production use**, and contributions from the community are currently **not accepted**.  
 
-## ⚡ **Roadmap**
-- Add social login features.  
-- Introduce battle forums for real-time discussions.  
-- Expand character guides with videos and advanced strategies.
-
----
-
-## 🏯 **Acknowledgments**
-*"To all the warriors, past and present, who inspire the Shogun Showdown community—this realm is for you."*
-
----
-
-**May your journey be victorious, warrior!**  
-*"Forge ahead and leave your mark on this land."*
+Feel free to browse the code and learn from it, but keep in mind that the realm is under constant construction. When the time comes for a true battle-ready version, all warriors shall be summoned!
