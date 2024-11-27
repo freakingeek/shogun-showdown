@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/index.js";
 import { GET_CURRENT_USER_QUERY } from "@/graphql/queries/getCurrentUser";
 
 export default function Profile() {

@@ -1,12 +1,11 @@
-import { ACCESS_TOKEN_KEY } from "@/configs/constants";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { authLink, httpLink } from "./apollo-links";
+import { ApolloClient, InMemoryCache } from "@apollo/client/index.js";
 
 const inMemoryCache = new InMemoryCache();
 
 export const apolloClient = new ApolloClient({
   cache: inMemoryCache,
-  uri: import.meta.env.VITE_API_URL,
-  headers: { Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN_KEY)}` },
+  link: authLink.concat(httpLink),
 });
 
 export const globalApolloClient = new ApolloClient({

@@ -1,13 +1,14 @@
 import Input from "@/components/Input";
 import Button from "@/components/Button";
-import { useMutation } from "@apollo/client";
 import { Link, useNavigate } from "react-router";
+import { useMutation } from "@apollo/client/index.js";
 import { ACCESS_TOKEN_KEY } from "@/configs/constants";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useAuthContext } from "@/providers/AuthProvider";
 import { globalApolloClient } from "@/lib/apollo-clients";
 import { LOGIN_MUTATION } from "@/graphql/mutations/login";
 import { EMAIL_VALIDATION_MUTATION } from "@/graphql/mutations/emailValidation";
+import { useCookies } from "react-cookie";
 
 type Inputs = {
   email: string;
@@ -16,6 +17,7 @@ type Inputs = {
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const [, setCookie] = useCookies();
   const { setIsLoggedIn, setCurrentUser } = useAuthContext();
   const {
     register,
@@ -27,7 +29,10 @@ export default function LoginPage() {
   const [validateEmail] = useMutation(EMAIL_VALIDATION_MUTATION, { client: globalApolloClient });
   const [login] = useMutation(LOGIN_MUTATION, {
     onCompleted: ({ loginNetwork }) => {
-      localStorage.setItem(ACCESS_TOKEN_KEY, loginNetwork.accessToken);
+      const expireTime = new Date();
+      expireTime.setDate(expireTime.getDate() + 7);
+
+      setCookie(ACCESS_TOKEN_KEY, loginNetwork.accessToken, { expires: expireTime });
 
       setIsLoggedIn(true);
 

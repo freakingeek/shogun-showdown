@@ -1,6 +1,6 @@
 import Post from "@/components/Post";
 import Button from "@/components/Button";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/index.js";
 import { GET_POSTS_LIST_QUERY } from "@/graphql/queries/getPostsList";
 
 const POSTS_PER_REQUEST = 5;
