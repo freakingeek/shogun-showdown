@@ -51,6 +51,26 @@ The **Shogun Showdown Community Portal** is a sanctuary for all warriors. Built 
 
 ---
 
+## 🛡️ **Build**  
+*"Forge the portal into a stronghold!"*  
+
+1. **Build the Project**  
+   *"Create the production build by summoning:"*  
+   ```bash
+   npm run build
+   ```
+
+2. **Serve the Realm**  
+   *"Deploy the portal for all warriors to access with:"*  
+   ```bash
+   npm run preview
+   ```
+
+3. **Verify the Gates**  
+   *"Ensure the portal is live at [http://localhost:3000](http://localhost:3000)."*
+
+---
+
 ## 📜 **Contributing**
 *"Every warrior can shape the realm."*  
 - Submit pull requests to share your enhancements.  
