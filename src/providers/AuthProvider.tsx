@@ -11,6 +11,7 @@ import {
   type Dispatch,
   type SetStateAction,
   type PropsWithChildren,
+  useEffect,
 } from "react";
 
 type AuthContextTypes = {
@@ -36,7 +37,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState<CurrentUser>();
 
-  useQuery(GET_CURRENT_USER_QUERY, {
+  const { refetch } = useQuery(GET_CURRENT_USER_QUERY, {
     onCompleted: ({ authMember }) => {
       if (authMember.name === "Guest") {
         return;
@@ -50,6 +51,10 @@ export default function AuthProvider({ children }: PropsWithChildren) {
       cookies.remove(ACCESS_TOKEN_KEY);
     },
   });
+
+  useEffect(() => {
+    refetch();
+  }, [currentUser, refetch]);
 
   const values = useMemo(() => ({ isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser }), [currentUser, isLoggedIn]);
 
