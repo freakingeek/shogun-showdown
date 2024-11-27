@@ -1,7 +1,8 @@
-import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
-
-import type { Route } from "./+types/root";
 import stylesheet from "@/globals.css?url";
+import type { Route } from "./+types/root";
+import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import Error404 from "@/components/errors/Error404";
+import { NotFoundError } from "@/lib/exceptions/instances";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -50,6 +51,14 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
+  }
+
+  if (error instanceof NotFoundError || message === "404") {
+    return (
+      <div className="h-svh flex items-center justify-center">
+        <Error404 />
+      </div>
+    );
   }
 
   return (
