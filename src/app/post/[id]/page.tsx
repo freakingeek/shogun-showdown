@@ -55,7 +55,7 @@ export default function SinglePostPage() {
     <MainLayout>
       <div className="flex flex-col">
         <div className="flex items-center gap-x-2">
-          <span className="text-sm font-medium">Yasin Silavi</span>
+          <span className="text-sm font-medium">{post?.post.owner.member.name}</span>
           <span className="w-1 h-1 bg-[#d9d9d9] rounded-sm"></span>
           <span className="text-xs text-secondary">{dayjs(post?.post.createdAt).fromNow()}</span>
         </div>
