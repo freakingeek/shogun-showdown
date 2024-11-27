@@ -13,6 +13,7 @@ type GetSinglePostData = {
   post: {
     title: string;
     createdAt: string;
+    description: string;
     reactionsCount: number;
     reactions: Reaction[];
     owner: {
@@ -32,6 +33,7 @@ export const GET_SINGLE_POST_QUERY: TypedDocumentNode<GetSinglePostData, GetSing
   query GetSinglePost($id: ID!) {
     post(id: $id) {
       title
+      description
       createdAt
       fields {
         key

@@ -10,6 +10,13 @@ import { NotFoundError } from "@/lib/exceptions/instances";
 import { Link, useLoaderData, useParams } from "react-router";
 import { GET_SINGLE_POST_QUERY } from "@/graphql/queries/getSinglePost";
 
+export function meta({ data }: Route.MetaArgs) {
+  return [
+    { title: `${data?.post.title} - Shogun Showdown Community` },
+    { name: "description", content: data?.post.description },
+  ];
+}
+
 export async function loader({ request, params }: Route.LoaderArgs) {
   const cookies = new Cookies(request.headers.get("cookie"));
   const token = cookies.get(ACCESS_TOKEN_KEY);
@@ -19,7 +26,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
       query: GET_SINGLE_POST_QUERY,
       context: { headers: { Authorization: token ? `Bearer ${token}` : "" } },
       variables: { id: params.id },
-      fetchPolicy: 'no-cache',
+      fetchPolicy: "no-cache",
     });
 
     return data;

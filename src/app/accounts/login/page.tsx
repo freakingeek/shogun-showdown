@@ -10,6 +10,10 @@ import { LOGIN_MUTATION } from "@/graphql/mutations/login";
 import { EMAIL_VALIDATION_MUTATION } from "@/graphql/mutations/emailValidation";
 import { useCookies } from "react-cookie";
 
+export function meta() {
+  return [{ title: 'Begin Your Journey - Shogun Showdown Community' }]
+}
+
 type Inputs = {
   email: string;
   password: string;
@@ -120,7 +124,7 @@ export default function LoginPage() {
         })}
       />
 
-      <Button className="w-full mt-8">Send Quest Code</Button>
+      <Button className="w-full mt-8">Open the gates</Button>
 
       <span className="w-80 text-sm mt-10">
         By proceeding, you honor our{" "}
