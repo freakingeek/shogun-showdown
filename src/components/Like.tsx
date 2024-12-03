@@ -1,9 +1,13 @@
 import { useState } from "react";
 import classNames from "classnames";
 import Icon from "@/components/Icon";
+import { useNavigate } from "react-router";
 import { useMutation } from "@apollo/client/index.js";
+import { useAuthContext } from "@/providers/AuthProvider";
 import { ADD_REACTION_MUTATION } from "@/graphql/mutations/addReaction";
 import { REMOVE_REACTION_MUTATION } from "@/graphql/mutations/removeReaction";
+
+const reaction = "heart";
 
 type LikeProps = {
   postId: string;
@@ -13,7 +17,8 @@ type LikeProps = {
 };
 
 export default function Like({ postId, likesCount = 0, isLiked = false, className }: LikeProps) {
-  const reaction = "heart";
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAuthContext();
 
   const [localLikesCount, setLocalLikesCount] = useState(likesCount);
   const [localIsLiked, setLocalIsLiked] = useState(isLiked);
@@ -38,12 +43,17 @@ export default function Like({ postId, likesCount = 0, isLiked = false, classNam
     },
   });
 
+  const onLikeButtonClicked = () => {
+    if (!isLoggedIn) {
+      return navigate("/accounts/login");
+    }
+
+    const action = localIsLiked ? dislike : like;
+    action();
+  };
+
   return (
-    <div
-      role="button"
-      className={classNames("flex gap-x-3 items-center", className)}
-      onClick={() => (localIsLiked ? dislike() : like())}
-    >
+    <div role="button" className={classNames("flex gap-x-3 items-center", className)} onClick={onLikeButtonClicked}>
       <Icon name="like" className={classNames("cursor-pointer", { sepia: !localIsLiked })} />
       <span>{localLikesCount}</span>
     </div>

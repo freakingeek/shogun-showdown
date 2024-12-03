@@ -38,20 +38,22 @@ export default function PostsList() {
   }
 
   return (
-    <section>
-      {posts.map((post) => (
-        <Post
-          key={post.id}
-          id={post.id}
-          title={post.title}
-          date={post.createdAt}
-          description={post.description}
-          author={post.owner.member.name}
-          likesCount={post.reactionsCount}
-          hasMoreContent={post.hasMoreContent}
-          isLiked={isLikedByCurrentUser(post.reactions)}
-        />
-      ))}
+    <>
+      <section className="divide-secondary/15 divide-y-[1px]">
+        {posts.map((post) => (
+          <Post
+            key={post.id}
+            id={post.id}
+            title={post.title}
+            date={post.createdAt}
+            description={post.description}
+            author={post.owner.member.name}
+            likesCount={post.reactionsCount}
+            isLiked={isLikedByCurrentUser(post.reactions)}
+            className="py-6 first:pt-0"
+          />
+        ))}
+      </section>
 
       {posts.length < totalCount && (
         <>
@@ -62,6 +64,6 @@ export default function PostsList() {
           </Button>
         </>
       )}
-    </section>
+    </>
   );
 }
